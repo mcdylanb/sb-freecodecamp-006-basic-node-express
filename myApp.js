@@ -13,6 +13,20 @@ app.get("/", (req, res) => {
   res.sendFile(absolutePath);
 });
 
+app.get("/now", function(req, res,next) {
+  //middleware goes here 
+  req.time = new Date().toString()
+  console.log(req.time)
+  next()
+},function(req,res){
+  console.log(`inside the next {req.time}`)
+    res.json({
+      time: req.time,
+    });
+
+  }
+);
+
 app.get("/json", (req, res) => {
   if (process.env.MESSAGE_STYLE == "uppercase") {
     res.json({
